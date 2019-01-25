@@ -1,0 +1,96 @@
+---
+# tasks file for deluge
+
+- name: debug
+  debug:
+    msg: "{{ lookup('env', 'ANSIBLE_HASH_BEHAVIOUR') }}"
+
+- name: Add Deluge Offical PPA
+  apt_repository:
+    repo: ppa:deluge-team/ppa
+    filename: deluge
+
+- name: Install Deluge
+  apt: 
+    name: [ "deluged", "deluge-console" ]
+    update_cache: yes
+    state: present
+  
+- name: Create the user deluged run as
+  user:
+    name: "{{ runtime.user }}"
+    group: "{{ runtime.group }}"
+    password: "!"
+    system: yes
+    create_home: no
+
+- name: Create directories that deluged needs
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ runtime.user }}"
+    group: "{{ runtime.group }}"
+  loop: 
+    - "{{ runtime.base_path }}/{{ config.downloads.incomplete }}"
+    - "{{ runtime.base_path }}/{{ config.downloads.download }}"
+    - "{{ runtime.base_path }}/{{ config.downloads.watch }}"
+    - "{{ runtime.base_path }}/{{ runtime.config }}"
+    - "{{ runtime.base_path }}"
+
+- name: Remove default init.d file
+  file:
+    path: "/etc/init.d/deluged"
+    state: absent
+
+- name: Copy systemd file
+  template:
+    src: deluged.service.j2
+    dest: /etc/systemd/system/deluged.service
+  notify:
+    - enable deluged
+
+- name: debug out
+  debug:
+    msg: "{{ item }}"
+  loop:
+    - "{{ config }}"
+
+- name: Ensure Deluged is stopped
+  service:
+    name: deluged
+    state: stopped
+    daemon_reload: yes
+    
+- name: Copy deluged config file
+  template:
+    src: core.conf.j2
+    dest: "{{ runtime.base_path }}/{{ runtime.config }}/core.conf"
+  notify:
+    - restart deluged
+
+# - name: Waiting deluged to start
+#   pause:
+#     seconds: 10
+
+- name: Write user for remote control
+  block:
+    - lineinfile:
+        # Remove all user except localclient
+        path: "{{ runtime.base_path }}/{{ runtime.config }}/auth"
+        regexp: "^(?!localclient)(\\w+):(\\w+):(\\d{0,2})$"
+        backup: yes
+        create: yes
+        state: absent
+    - lineinfile:
+        # Add users
+        path: "{{ runtime.base_path }}/{{ runtime.config }}/auth"
+        line: "{{ item.name }}:{{ item.pass }}:{{ item.level }}"
+        owner: "{{ runtime.user }}"
+        group: "{{ runtime.group }}"
+        create: yes
+        state: present
+      loop: "{{ users }}"
+      notify: restart deluged
+  when: users is defined
+
+

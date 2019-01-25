@@ -1,0 +1,103 @@
+{
+  "file": 1, 
+  "format": 1
+}{
+  "download_location": "{{ runtime.base_path }}/{{ config.downloads.incomplete }}",
+  "move_completed": true,
+  "move_completed_path": "{{ runtime.base_path }}/{{ config.downloads.download }}",
+  "autoadd_enable": true,
+  "autoadd_location": "{{ runtime.base_path }}/{{ config.downloads.watch }}",
+  "copy_torrent_file": false,
+  "torrentfiles_location": "/dev/null",
+  "del_copy_torrent_file": false,
+  "compact_allocation": false,
+  "prioritize_first_last_pieces": {{ config.downloads.prioritize_first_last_pieces | tojson }},
+  "add_paused": {{ config.downloads.add_paused | tojson }},
+
+  "random_outgoing_ports": {{ config.network.random_outgoing_ports | tojson }},
+  "outgoing_ports": {{ config.network.outgoing_ports | tojson }},
+  "random_port": {{ config.network.random_port | tojson }},
+  "listen_ports": {{ config.network.listen_ports | tojson }},
+  "listen_interface": "{{ config.network.listen_interface }}",
+  "peer_tos": "{{ config.network.peer_tos | tojson }}",
+  "upnp": {{ config.network.upnp | tojson }},
+  "natpmp": {{ config.network.natpmp | tojson }},
+  "utpex": {{ config.network.utpex | tojson }},
+  "lsd": {{ config.network.lsd | tojson }},
+  "dht": {{ config.network.dht | tojson }},
+  "enc_in_policy": 1,
+  "enc_out_policy": 1,
+  "enc_level": 2,
+  "enc_prefer_rc4": true,
+
+  "max_connections_global": {{ config.bandwidth.global.max_connections }},
+  "max_upload_slots_global": {{ config.bandwidth.global.max_upload_slots }},
+  "max_download_speed": {{ config.bandwidth.global.max_download_speed }},
+  "max_upload_speed": {{ config.bandwidth.global.max_upload_speed }},
+  "max_half_open_connections": {{ config.bandwidth.global.max_half_open_connections }},
+  "max_connections_per_second": {{ config.bandwidth.global.max_connections_per_sec }},
+  "ignore_limits_on_local_network": true,
+  "rate_limit_ip_overhead": true,
+  "max_connections_per_torrent": {{ config.bandwidth.torrent.max_connections }},
+  "max_upload_slots_per_torrent": {{ config.bandwidth.torrent.max_upload_slots }},
+  "max_download_speed_per_torrent": {{ config.bandwidth.torrent.max_download_speed }},
+  "max_upload_speed_per_torrent": {{ config.bandwidth.torrent.max_upload_speed }},
+
+  "daemon_port": {{ config.daemon.port }},
+  "allow_remote": {{ config.daemon.allow_remote | tojson }},
+  "new_release_check": {{ config.daemon.new_release_check | tojson }},
+
+  "queue_new_to_top": {{ config.queue.queue_new_to_top | tojson }},
+  "max_active_limit": {{ config.queue.max_active_limit }},
+  "max_active_downloading": {{ config.queue.max_active_downloading }},
+  "max_active_seeding": {{ config.queue.max_active_seeding }},
+  "dont_count_slow_torrents": {{ config.queue.dont_count_slow_torrents | tojson }},
+  "share_ratio_limit": {{ config.queue.share_ratio_limit }},
+  "seed_time_ratio_limit": {{ config.queue.seed_time_ratio_limit }},
+  "seed_time_limit": {{ config.queue.seed_time_limit }},
+  "stop_seed_at_ratio": {{ config.queue.stop_seed_at_ratio | tojson }},
+  "stop_seed_ratio": {{ config.queue.stop_seed_ratio }},
+  "remove_seed_at_ratio": {{ config.queue.remove_seed_at_ratio | tojson }},
+
+  "proxies": {
+    "peer": {
+      "username": "",
+      "password": "",
+      "type": 0,
+      "hostname": "",
+      "port": 8080
+    },
+    "web_seed": {
+      "username": "",
+      "password": "",
+      "type": 0,
+      "hostname": "",
+      "port": 8080
+    },
+    "tracker": {
+      "username": "",
+      "password": "",
+      "type": 0,
+      "hostname": "",
+      "port": 8080
+    },
+    "dht": {
+      "username": "",
+      "password": "",
+      "type": 0,
+      "hostname": "",
+      "port": 8080
+    }
+  },
+
+  "cache_size": {{ config.cache.size }},
+  "cache_expiry": {{ config.cache.expiry }},
+
+  "enabled_plugins": [],
+  "plugins_location": "{{ runtime.base_path }}/{{ runtime.config }}/plugins",
+
+  "info_sent": 0,
+  "send_info": false,
+  "auto_managed": true,
+  "geoip_db_location": "/usr/share/GeoIP/GeoIP.dat"
+}

@@ -1,0 +1,76 @@
+---
+# defaults file for seedbox
+
+runtime:
+  # user deluged will run as
+  user: deluged
+  group: users
+
+  base_path: /srv/deluged
+  config: .config
+
+# config var to be used in template
+config:
+  downloads:
+    incomplete: download/.incomplete
+    download: download
+    watch: watch
+    prioritize_first_last_pieces: no
+    add_paused: no
+
+  network:
+    random_outgoing_ports: yes
+    outgoing_ports:
+      - 0   # from
+      - 0   # to
+    random_port: no
+    listen_ports:
+      - 6881    # from
+      - 6891    # to
+    listen_interface: ""
+    peer_tos: 0x08    # Max Throughtput
+    upnp: yes
+    natpmp: yes
+    utpex: yes
+    lsd: yes
+    dht: yes
+
+  bandwidth:
+    global:
+      max_connections: 1000
+      max_upload_slots: 4
+      max_download_speed: 87500   # ~700 Mbps
+      max_upload_speed: 20000     # ~160 Mbps
+      max_half_open_connections: 100
+      max_connections_per_sec: 50
+    torrent:
+      max_connections: 120
+      max_upload_slots: 20
+      max_download_speed: -1
+      max_upload_speed: -1
+  
+  daemon:
+    port: 58846
+    allow_remote: yes
+    new_release_check: no
+
+  queue:
+    queue_new_to_top: yes
+    max_active_limit: 20
+    max_active_downloading: 5
+    max_active_seeding: 20
+    dont_count_slow_torrents: no
+    share_ratio_limit: 2
+    seed_time_ratio_limit: 7
+    seed_time_limit: 180
+    stop_seed_at_ratio: no
+    stop_seed_ratio: 2
+    remove_seed_at_ratio: no
+  
+  cache:
+    size: 65536   # 1 GB
+    expiry: 300   # 5 minutes
+
+debug:
+  file: /srv/deluged/debug.log
+  level: DEBUG

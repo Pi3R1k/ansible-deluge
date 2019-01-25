@@ -1,0 +1,22 @@
+---
+# handlers file for deluge
+# - name: Upload Deploy Key
+#   github_deploy_key:
+#     name: "Auto deployed by Ansible script for {{ ansible_hostname }} at {{ ansible_default_ipv4.address }}"
+#     owner: "http403"
+#     repository: "deluge-config"
+#     key: "{{ lookup('file', '/etc/ansible/gitdeploy.pub') }}"
+#     token: "{{ github_token }}"
+#     read_only: no
+
+- name: enable deluged
+  service:
+    name: deluged
+    enabled: yes
+    daemon_reload: yes
+
+- name: restart deluged
+  service:
+    name: deluged
+    state: restarted
+    daemon_reload: yes
