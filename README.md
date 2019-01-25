@@ -20,7 +20,7 @@ Caveat
 Role Variables
 --------------
 
-Most of Deluge configuration are exposed via role variables. They are packed into group with mostly aligned name convention. They are tuned to match typical public seedbox requirement. Please lookat [`defaults/main.yml`]() to get all avalible variables.
+Most of Deluge configuration are exposed via role variables. They are packed into group with mostly aligned name convention. They are tuned to match typical public seedbox requirement. Please lookat [`defaults/main.yml`](defaults/main.yml) to get all avalible variables.
 
 ##### Configuration NOT exposed:
   - Encryption
