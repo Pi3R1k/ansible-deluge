@@ -30,6 +30,7 @@ Most of Deluge configuration are exposed via role variables. They are packed int
   - Delete torrent file when remove
   - Allocation
   - Check new release
+  - Logging
   - `info_sent` # Please tell me what it does and its parameter.
   - `send_info` # Please tell me what it does and its parameter.
 
