@@ -28,7 +28,7 @@ config:
       - 6881    # from
       - 6891    # to
     listen_interface: ""
-    peer_tos: 0x08    # Max Throughtput
+    peer_tos: '0x08'    # Max Throughtput
     upnp: yes
     natpmp: yes
     utpex: yes
