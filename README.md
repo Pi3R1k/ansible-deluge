@@ -6,9 +6,7 @@ Bare Deluged Role
 Requirements
 ------------
 
-It only work on a Vagrant managed machine (What I tested). The daemon will restart suddenly and files corrupted. Still figuring out why.
-
-~~It is only runable on Debian based machine. Tested with Ubuntu Bonic.~~
+It is only runable on Debian based machine. Tested with Ubuntu Bonic.
 
 Caveat
 ------
@@ -57,6 +55,8 @@ Example Playbook
         config:
           daemon:
             port: 56607
+          cache:
+            size: 65536
 ```
 
 Execute Playbook
