@@ -71,6 +71,3 @@ config:
     size: 65536   # 1 GB
     expiry: 300   # 5 minutes
 
-debug:
-  file: /srv/deluged/debug.log
-  level: DEBUG
