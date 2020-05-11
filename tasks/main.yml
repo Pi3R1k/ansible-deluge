@@ -7,15 +7,15 @@
 
 - name: Add Deluge Offical PPA
   apt_repository:
-    repo: ppa:deluge-team/ppa
+    repo: ppa:deluge-team/stable
     filename: deluge
 
 - name: Install Deluge
-  apt: 
+  apt:
     name: [ "deluged", "deluge-console" ]
     update_cache: yes
     state: present
-  
+
 - name: Create the user deluged run as
   user:
     name: "{{ runtime.user }}"
@@ -30,7 +30,7 @@
     state: directory
     owner: "{{ runtime.user }}"
     group: "{{ runtime.group }}"
-  loop: 
+  loop:
     - "{{ runtime.base_path }}/{{ config.downloads.incomplete }}"
     - "{{ runtime.base_path }}/{{ config.downloads.download }}"
     - "{{ runtime.base_path }}/{{ config.downloads.watch }}"
@@ -60,7 +60,7 @@
     name: deluged
     state: stopped
     daemon_reload: yes
-    
+
 - name: Copy deluged config file
   template:
     src: core.conf.j2
